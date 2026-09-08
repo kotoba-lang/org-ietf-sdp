@@ -11,7 +11,8 @@
   extension point by later RFCs. Parsing them here is a deliberate step
   past what 4566 alone requires, because an SDP library that stops at
   \"attribute value is a string\" cannot answer the question codecs and
-  payload types actually get negotiated with.")
+  payload types actually get negotiated with."
+  (:require [kotoba.lang.text]))
 
 (defn parse-rtpmap
   "`a=rtpmap:<payload-type> <encoding-name>/<clock-rate>[/<encoding-parameters>]`
@@ -20,7 +21,7 @@
   attribute existing."
   [value]
   (if-let [[_ pt rest] (re-matches #"(\d+) (.+)" value)]
-    (let [parts (clojure.string/split rest #"/" 3)]
+    (let [parts (kotoba.lang.text/split rest #"/" 3)]
       (if (< (count parts) 2)
         [:error :sdp/malformed-rtpmap]
         [:ok (cond-> {:payload-type (parse-long pt)
@@ -45,7 +46,7 @@
   meaning \"applies to every payload type in this media section\"."
   [value]
   (if-let [[_ pt rest] (re-matches #"(\S+) (.+)" value)]
-    (let [[fb-type param] (clojure.string/split rest #" " 2)]
+    (let [[fb-type param] (kotoba.lang.text/split rest #" " 2)]
       [:ok (cond-> {:payload-type (if (= pt "*") :* (parse-long pt))
                     :feedback-type fb-type}
              param (assoc :feedback-parameter param))])
@@ -58,7 +59,7 @@
   synchronization source before a single packet has arrived."
   [value]
   (if-let [[_ ssrc rest] (re-matches #"(\d+) (.+)" value)]
-    (let [colon (clojure.string/index-of rest \:)]
+    (let [colon (kotoba.lang.text/index-of rest \:)]
       [:ok (if colon
              {:ssrc (parse-long ssrc)
               :attribute (subs rest 0 colon)
@@ -78,7 +79,7 @@
   with `value` opaque — this is the correct outcome for e.g. `a=recvonly`
   (no value at all) or `a=charset:...`, not a gap."
   [raw]
-  (let [colon (clojure.string/index-of raw \:)]
+  (let [colon (kotoba.lang.text/index-of raw \:)]
     (if (nil? colon)
       {:field raw}
       (let [field (subs raw 0 colon)

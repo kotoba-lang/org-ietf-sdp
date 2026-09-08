@@ -11,7 +11,8 @@
   line is deliberate: `a=fmtp:97 profile-level-id=42e01f` has a second `=`
   inside the value, and a splitter that isn't anchored to \"first
   occurrence\" corrupts every `fmtp`/`rtpmap` parameter line in the
-  session.")
+  session."
+  (:require [kotoba.lang.text]))
 
 (def line-types
   "The fourteen type characters SDP defines. Anything else at this
@@ -30,8 +31,8 @@
   to enforce."
   [text]
   (-> text
-      (clojure.string/replace #"\r\n" "\n")
-      (clojure.string/split #"\n" -1)))
+      (kotoba.lang.text/replace #"\r\n" "\n")
+      (kotoba.lang.text/split #"\n" -1)))
 
 (defn parse-line
   "One raw line -> `{:type \\v :value \"0\"}` or a named error. `type`
@@ -39,7 +40,7 @@
   first `=`, unmodified (so a value-parser sees the real bytes, including
   any inner `=`)."
   [line]
-  (let [eq (clojure.string/index-of line \=)]
+  (let [eq (kotoba.lang.text/index-of line \=)]
     (cond
       (empty? line)
       [:error :sdp/blank-line]

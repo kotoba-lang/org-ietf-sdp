@@ -14,7 +14,7 @@
     \"all MUST appear in exactly the order given here (the fixed order
     greatly enhances error detection and allows for a simple parser)\"
 
-  A `clojure.string/split` over `\\n` followed by grouping on the type
+  A `str/split` over `\\n` followed by grouping on the type
   character throws that guarantee away: `group-by` happily accepts `a=`,
   `t=`, `s=`, `v=` in any order, because nothing about it cares about
   sequence. This namespace instead walks the token list once with an
@@ -36,7 +36,7 @@
 
 (require '[sdp.grammar :as g]
          '[sdp.attrs :as attrs]
-         '[clojure.string :as str])
+         '[kotoba.lang.text :as str])
 
 ;; ── slot tables ──────────────────────────────────────────────────────────
 ;; One entry per line type, in the exact order [RFC 4566] §9 names them.

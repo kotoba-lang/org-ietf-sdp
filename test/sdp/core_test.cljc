@@ -2,7 +2,7 @@
   (:require [clojure.test :refer [deftest testing is]]
             [sdp.core :as sdp]
             [sdp.attrs :as attrs]
-            [clojure.string :as str]))
+            [kotoba.lang.text :as str]))
 
 ;; ── RFC 4566 §5's own worked example, verbatim ──────────────────────────
 ;;
