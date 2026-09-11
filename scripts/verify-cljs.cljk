@@ -1,4 +1,4 @@
-#!/usr/bin/env nbb
+#!/usr/bin/env kbb
 ;; Run the suite on the ClojureScript side.
 ;;
 ;; Not a formality: `sdp.core` reads/writes line ordering via a position
@@ -9,7 +9,7 @@
 ;; (`org-modbus`'s own README: `(map int "...")` silently producing
 ;; zeros under ClojureScript).
 ;;
-;;   nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljk
+;;   kbb --backend sci --classpath "$(kbb -A:cljs -Spath)" scripts/verify-cljs.cljk
 (ns verify-cljs
   (:require [clojure.test :as t]
             [sdp.core-test]
