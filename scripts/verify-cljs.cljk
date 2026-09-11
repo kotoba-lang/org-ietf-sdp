@@ -9,7 +9,7 @@
 ;; (`org-modbus`'s own README: `(map int "...")` silently producing
 ;; zeros under ClojureScript).
 ;;
-;;   nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljs
+;;   nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljk
 (ns verify-cljs
   (:require [clojure.test :as t]
             [sdp.core-test]

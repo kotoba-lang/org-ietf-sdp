@@ -91,7 +91,7 @@ Returned, never thrown. `:reason` is a keyword naming the rule:
 
 ```sh
 clojure -M:test                                                        # JVM
-nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljs   # ClojureScript (see org-modbus for the pattern)
+nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljk   # ClojureScript (see org-modbus for the pattern)
 ```
 
 ## Not here
